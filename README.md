@@ -11,6 +11,7 @@ Knowledge Service
 
 검색: 제목/내용 키워드 검색
 
+
 🔹 2단계: 포트폴리오 강화 기능
 
 마크다운 지원: 코드 블록, 링크, 이미지 첨부
@@ -20,6 +21,7 @@ Knowledge Service
 즐겨찾기: 자주 보는 글 북마크
 
 REST API 문서화: Swagger, ERD 정리
+
 
 🔹 3단계: 실사용 & 확장
 
