@@ -1,0 +1,26 @@
+{
+  "name": "Spring Boot Gradle + Lombok Dev Container",
+  "image": "mcr.microsoft.com/vscode/devcontainers/java:17",
+  "forwardPorts": [8080],
+  "postCreateCommand": "./gradlew build || true",
+  "remoteUser": "vscode",
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "terminal.integrated.shell.linux": "/bin/bash",
+        "java.home": "/usr/local/openjdk-17",
+        "java.configuration.updateBuildConfiguration": "automatic",
+        "java.import.gradle.enabled": true,
+        "java.import.maven.enabled": false,
+        "java.errors.incompleteClasspath.severity": "ignore"
+      },
+      "extensions": [
+        "vscjava.vscode-java-pack",
+        "vscjava.vscode-spring-boot-extension-pack",
+        "vscjava.vscode-gradle",
+        "vscjava.vscode-java-debug",
+        "GabrielBB.vscode-lombok"
+      ]
+    }
+  }
+}
