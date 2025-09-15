@@ -1,0 +1,16 @@
+{
+  // JDK 경로 명시 (Codespaces 기본 위치)
+  "java.jdt.ls.java.home": "/usr/lib/jvm/java-17-openjdk-amd64",
+
+  // Lombok 및 Null 어노테이션 관련 지원
+  "java.compile.nullAnalysis.mode": "automatic",
+
+  // 불필요한 Eclipse 메타데이터 숨기기
+  "java.import.generatesMetadataFilesAtProjectRoot": true,
+  "files.exclude": {
+    "**/.classpath": true,
+    "**/.project": true,
+    "**/.settings": true,
+    "**/.factorypath": true
+  }
+}
