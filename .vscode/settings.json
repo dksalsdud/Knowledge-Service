@@ -1,6 +1,6 @@
 {
   // JDK 경로 명시 (Codespaces 기본 위치)
-  "java.jdt.ls.java.home": "/usr/lib/jvm/java-17-openjdk-amd64",
+  "java.jdt.ls.java.home": "/usr/local/openjdk-17",
 
   // Lombok 및 Null 어노테이션 관련 지원
   "java.compile.nullAnalysis.mode": "automatic",
