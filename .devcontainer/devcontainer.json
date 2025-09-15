@@ -8,10 +8,8 @@
     "vscode": {
       "extensions": [
         "vscjava.vscode-java-pack",
-        "vscjava.vscode-spring-initializr",
-        "vscjava.vscode-spring-boot-dashboard",
         "richardwillis.vscode-gradle",
-        "pivotal.vscode-spring-boot",
+        "vmware.vscode-boot-dev-pack",
         "vscjava.vscode-lombok"
       ]
     }
