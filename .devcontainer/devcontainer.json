@@ -12,7 +12,7 @@
         "vscjava.vscode-spring-boot-dashboard",
         "richardwillis.vscode-gradle",
         "pivotal.vscode-spring-boot",
-        "GabrielBB.vscode-lombok"
+        "vscjava.vscode-lombok"
       ]
     }
   }
