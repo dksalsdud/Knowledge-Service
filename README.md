@@ -1,4 +1,4 @@
-# Knowledge-Service
+# Notiva
 Knowledge Service
 
 🔹 1단계: MVP (기본 기능)
