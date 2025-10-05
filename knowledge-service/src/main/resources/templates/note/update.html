@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Note - Notiva</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/5.2.0/github-markdown-light.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/9.1.6/marked.min.js"></script>
+    <link rel="stylesheet" th:href="@{/css/note/common.css}">
+    <link rel="stylesheet" th:href="@{/css/note/write.css}">
+    <link rel="stylesheet" th:href="@{/css/note/update.css}">
+    <link rel="stylesheet" th:href="@{/css/animations.css}">
+</head>
+<body>
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <a th:href="@{/notes(userId=${userId})}" class="sidebar-icon" title="홈">
+            <span class="icon-content">🏠</span>
+        </a>
+        <div class="sidebar-icon" title="전체 노트">
+            <span class="icon-content">📋</span>
+        </div>
+        <div class="sidebar-icon" title="검색">
+            <span class="icon-content">🔍</span>
+        </div>
+        <div class="sidebar-icon" title="설정">
+            <span class="icon-content">⚙️</span>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="header fade-in">
+            <div class="header-left">
+                <h1>노트 수정</h1>
+                <div class="last-saved">
+                    <span class="saved-icon">💾</span>
+                    <span>마지막 저장: </span>
+                    <span class="saved-time" th:text="${#temporals.format(note.updatedAt, 'yyyy년 MM월 dd일 HH:mm')}">2025년 10월 05일 14:30</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Version Info Banner -->
+        <div class="version-banner slide-up">
+            <div class="version-content">
+                <span class="version-icon">📝</span>
+                <div class="version-text">
+                    <strong>수정 중</strong>
+                    <span>이 노트의 변경사항을 편집하고 있습니다</span>
+                </div>
+            </div>
+            <button class="history-btn">
+                <span>📚</span>
+                <span>히스토리</span>
+            </button>
+        </div>
+
+        <form class="note-form slide-up" th:action="@{/notes/update/{id}(id=${note.id})}" method="post" th:object="${note}">
+            <input type="hidden" name="_method" value="PUT" />
+            
+            <div class="form-group">
+                <input type="text" id="title" name="title" class="form-input title-input" 
+                       placeholder="제목을 입력하세요" 
+                       th:field="*{title}" required />
+            </div>
+
+            <div class="editor-container">
+                <div class="editor-section">
+                    <div class="editor-header">
+                        <span class="editor-label">작성</span>
+                        <div class="markdown-toolbar">
+                            <button type="button" class="toolbar-btn" onclick="insertMarkdown('**', '**')" title="Bold">
+                                <strong>B</strong>
+                            </button>
+                            <button type="button" class="toolbar-btn" onclick="insertMarkdown('*', '*')" title="Italic">
+                                <em>I</em>
+                            </button>
+                            <button type="button" class="toolbar-btn" onclick="insertMarkdown('# ', '')" title="Heading">
+                                H
+                            </button>
+                            <button type="button" class="toolbar-btn" onclick="insertMarkdown('```\n', '\n```')" title="Code">
+                                &lt;/&gt;
+                            </button>
+                            <button type="button" class="toolbar-btn" onclick="insertMarkdown('- ', '')" title="List">
+                                ≡
+                            </button>
+                        </div>
+                    </div>
+                    <textarea id="content" name="content" class="form-textarea" 
+                              placeholder="내용을 입력하세요..." 
+                              th:field="*{content}" 
+                              oninput="updatePreview()" required></textarea>
+                </div>
+
+                <div class="editor-section">
+                    <div class="editor-header">
+                        <span class="editor-label">미리보기</span>
+                    </div>
+                    <div class="preview-area">
+                        <div id="preview" class="markdown-body">
+                            <p class="preview-placeholder">미리보기가 여기에 표시됩니다...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="tags-input-container">
+                    <input type="text" id="tags" name="tags" class="form-input tags-input" 
+                           placeholder="#태그를 입력하세요 (예: #개발 #공부)" />
+                    <span class="star-icon" onclick="this.classList.toggle('active')">⭐</span>
+                </div>
+            </div>
+
+            <div class="form-actions">
+                <button type="button" class="btn btn-cancel" 
+                        th:onclick="'location.href=\'/notes/' + ${note.id} + '\''">
+                    <span>취소</span>
+                </button>
+                <button type="submit" class="btn btn-save">
+                    <span>저장하기</span>
+                    <span class="save-icon">✓</span>
+                </button>
+            </div>
+        </form>
+    </main>
+
+    <script th:src="@{/js/note/common.js}"></script>
+    <script th:src="@{/js/note/write.js}"></script>
+</body>
+</html>
