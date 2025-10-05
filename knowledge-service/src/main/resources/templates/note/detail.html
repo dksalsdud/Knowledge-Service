@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Note Detail - Notiva</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/5.2.0/github-markdown-light.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/9.1.6/marked.min.js"></script>
+    <link rel="stylesheet" th:href="@{/css/note/common.css}">
+    <link rel="stylesheet" th:href="@{/css/note/detail.css}">
+    <link rel="stylesheet" th:href="@{/css/animations.css}">
+</head>
+<body>
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <a th:href="@{/notes(userId=${userId})}" class="sidebar-icon" title="홈">
+            <span class="icon-content">🏠</span>
+        </a>
+        <div class="sidebar-icon" title="전체 노트">
+            <span class="icon-content">📋</span>
+        </div>
+        <div class="sidebar-icon" title="검색">
+            <span class="icon-content">🔍</span>
+        </div>
+        <div class="sidebar-icon" title="설정">
+            <span class="icon-content">⚙️</span>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content-wrapper">
+        <section class="note-section fade-in">
+            <div class="note-header">
+                <button class="back-btn" onclick="history.back()">
+                    <span class="back-icon">←</span>
+                    <span>뒤로가기</span>
+                </button>
+            </div>
+
+            <article class="note-content-box slide-up">
+                <div class="note-title-section">
+                    <h1 class="note-title" th:text="${detailNote.title}">노트 제목</h1>
+                    <div class="note-meta">
+                        <span class="meta-item">
+                            <span class="meta-icon">📅</span>
+                            <span th:text="${#temporals.format(detailNote.updatedAt, 'yyyy년 MM월 dd일')}">2025년 10월 05일</span>
+                        </span>
+                        <span class="meta-divider">•</span>
+                        <span class="meta-item">
+                            <span class="meta-icon">⏱️</span>
+                            <span th:text="${#temporals.format(detailNote.updatedAt, 'HH:mm')}">14:30</span>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="note-divider"></div>
+
+                <div class="note-body markdown-body" id="noteContent" th:attr="data-content=${detailNote.content}">
+                    <!-- 마크다운 내용이 렌더링됩니다 -->
+                </div>
+
+                <div class="note-tags">
+                    <span class="tag">#Java</span>
+                    <span class="tag">#Spring</span>
+                </div>
+            </article>
+
+            <div class="action-buttons">
+                <a class="btn btn-edit" th:href="@{/notes/update/{id}(id=${detailNote.id})}">
+                    <span class="btn-icon">✏️</span>
+                    <span>수정</span>
+                </a>
+                <button class="btn btn-delete" onclick="if(confirm('정말 삭제하시겠습니까?')) { document.getElementById('deleteForm').submit(); }">
+                    <span class="btn-icon">🗑️</span>
+                    <span>삭제</span>
+                </button>
+            </div>
+
+            <!-- Delete Form -->
+            <form id="deleteForm" th:action="@{/notes/{id}(id=${detailNote.id})}" method="post" style="display: none;">
+                <input type="hidden" name="_method" value="DELETE" />
+            </form>
+        </section>
+
+        <!-- History Sidebar -->
+        <aside class="history-sidebar">
+            <div class="history-header">
+                <h3>📚 History</h3>
+                <p class="history-subtitle">수정 이력</p>
+            </div>
+            <div class="history-list">
+                <div class="history-item">
+                    <div class="history-bullet active"></div>
+                    <div class="history-content">
+                        <div class="history-text">최근 수정</div>
+                        <div class="history-time">방금 전</div>
+                    </div>
+                </div>
+                <div class="history-item">
+                    <div class="history-bullet"></div>
+                    <div class="history-content">
+                        <div class="history-text">내용 업데이트</div>
+                        <div class="history-time">2시간 전</div>
+                    </div>
+                </div>
+                <div class="history-item">
+                    <div class="history-bullet"></div>
+                    <div class="history-content">
+                        <div class="history-text">초안 작성</div>
+                        <div class="history-time">1일 전</div>
+                    </div>
+                </div>
+            </div>
+        </aside>
+    </main>
+
+    <script th:src="@{/js/note/common.js}"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const contentElement = document.getElementById('noteContent');
+            const markdownContent = contentElement.getAttribute('data-content');
+            if (markdownContent) {
+                contentElement.innerHTML = marked.parse(markdownContent);
+            }
+        });
+    </script>
+</body>
+</html>
