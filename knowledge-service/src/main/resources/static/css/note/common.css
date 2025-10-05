@@ -1,0 +1,226 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Malgun Gothic', sans-serif;
+    background: linear-gradient(135deg, #f8f9ff 0%, #f0f4ff 100%);
+    color: #333;
+    display: flex;
+    min-height: 100vh;
+}
+
+/* Sidebar */
+.sidebar {
+    width: 85px;
+    background: white;
+    border-right: 1px solid rgba(66, 133, 244, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 30px 0;
+    position: fixed;
+    height: 100vh;
+    z-index: 1000;
+    box-shadow: 4px 0 20px rgba(0, 0, 0, 0.03);
+}
+
+.sidebar-icon {
+    width: 55px;
+    height: 55px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 25px;
+    border-radius: 16px;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    font-size: 24px;
+    color: #666;
+    text-decoration: none;
+    position: relative;
+    background: transparent;
+}
+
+.sidebar-icon::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 16px;
+    background: linear-gradient(135deg, #4285f4, #6ba3f5);
+    opacity: 0;
+    transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.sidebar-icon .icon-content {
+    position: relative;
+    z-index: 1;
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.sidebar-icon:hover {
+    transform: translateY(-3px);
+}
+
+.sidebar-icon:hover::before {
+    opacity: 0.1;
+}
+
+.sidebar-icon:hover .icon-content {
+    transform: scale(1.1);
+}
+
+.sidebar-icon.active {
+    background: linear-gradient(135deg, #4285f4, #6ba3f5);
+    color: white;
+    box-shadow: 0 8px 20px rgba(66, 133, 244, 0.3);
+}
+
+.sidebar-icon.active::before {
+    opacity: 0;
+}
+
+/* Main Content */
+.main-content {
+    flex: 1;
+    margin-left: 85px;
+    padding: 40px 60px;
+    max-width: 1600px;
+}
+
+/* Header */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 50px;
+}
+
+.header-left h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 8px;
+    background: linear-gradient(135deg, #4285f4, #6ba3f5);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.header-subtitle {
+    font-size: 1rem;
+    color: #999;
+    font-weight: 400;
+}
+
+.logout-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 28px;
+    background: white;
+    border: 2px solid rgba(66, 133, 244, 0.2);
+    border-radius: 30px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    color: #666;
+    text-decoration: none;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
+}
+
+.logout-btn:hover {
+    border-color: #4285f4;
+    color: #4285f4;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(66, 133, 244, 0.15);
+}
+
+.logout-icon {
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.logout-btn:hover .logout-icon {
+    transform: translateX(3px);
+}
+
+/* Add Button */
+.add-note-btn {
+    position: fixed;
+    bottom: 50px;
+    right: 50px;
+    width: 70px;
+    height: 70px;
+    background: linear-gradient(135deg, #4285f4, #6ba3f5);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 8px 30px rgba(66, 133, 244, 0.4);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 500;
+    border: none;
+}
+
+.add-note-btn:hover {
+    transform: scale(1.15) rotate(90deg);
+    box-shadow: 0 12px 40px rgba(66, 133, 244, 0.5);
+}
+
+.add-note-btn .plus-icon::before,
+.add-note-btn .plus-icon::after {
+    content: '';
+    position: absolute;
+    background: white;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.add-note-btn .plus-icon::before {
+    width: 28px;
+    height: 3px;
+}
+
+.add-note-btn .plus-icon::after {
+    width: 3px;
+    height: 28px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .sidebar {
+        width: 70px;
+        padding: 20px 0;
+    }
+
+    .sidebar-icon {
+        width: 50px;
+        height: 50px;
+        margin-bottom: 20px;
+    }
+
+    .main-content {
+        margin-left: 70px;
+        padding: 30px 25px;
+    }
+
+    .header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 20px;
+    }
+
+    .header-left h1 {
+        font-size: 2rem;
+    }
+
+    .add-note-btn {
+        width: 60px;
+        height: 60px;
+        bottom: 30px;
+        right: 30px;
+    }
+}
