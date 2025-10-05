@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>All Notes - Notiva</title>
+    <link rel="stylesheet" th:href="@{/css/note/common.css}">
+    <link rel="stylesheet" th:href="@{/css/note/list.css}">
+    <link rel="stylesheet" th:href="@{/css/animations.css}">
+</head>
+<body>
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <a th:href="@{/notes(userId=${userId})}" class="sidebar-icon" title="홈">
+            <span class="icon-content">🏠</span>
+        </a>
+        <a th:href="@{/notes/list(userId=${userId})}" class="sidebar-icon active" title="전체 노트">
+            <span class="icon-content">📋</span>
+        </a>
+        <div class="sidebar-icon" title="검색">
+            <span class="icon-content">🔍</span>
+        </div>
+        <div class="sidebar-icon" title="설정">
+            <span class="icon-content">⚙️</span>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="header fade-in">
+            <div class="header-left">
+                <h1>All Notes</h1>
+                <p class="header-subtitle">모든 노트를 한눈에 확인하세요</p>
+            </div>
+            <div class="header-actions">
+                <div class="view-toggle">
+                    <button class="view-btn active" onclick="toggleView('list')" title="리스트 뷰">
+                        <span>☰</span>
+                    </button>
+                    <button class="view-btn" onclick="toggleView('grid')" title="그리드 뷰">
+                        <span>⊞</span>
+                    </button>
+                </div>
+                <a href="#" class="logout-btn">
+                    <span>Logout</span>
+                    <span class="logout-icon">→</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- Filter Tabs -->
+        <div class="filter-tabs slide-up">
+            <button class="filter-tab active">
+                <span class="tab-icon">📝</span>
+                <span>전체</span>
+            </button>
+            <button class="filter-tab">
+                <span class="tab-icon">🕐</span>
+                <span>최근 수정</span>
+            </button>
+            <button class="filter-tab">
+                <span class="tab-icon">⭐</span>
+                <span>즐겨찾기</span>
+            </button>
+        </div>
+
+        <!-- List View -->
+        <div id="listView" class="notes-list">
+            <div class="note-list-item" th:each="note : ${listNotes}" 
+                 th:onclick="'location.href=\'/notes/' + ${note.id} + '\''">
+                <div class="note-list-indicator"></div>
+                <div class="note-list-content">
+                    <h3 class="note-list-title" th:text="${note.title}">노트 제목</h3>
+                    <p class="note-list-preview" th:text="${#strings.abbreviate(note.content, 120)}">노트 내용 미리보기...</p>
+                    <div class="note-list-meta">
+                        <span class="meta-badge">
+                            <span>📅</span>
+                            <span th:text="${#temporals.format(note.updatedAt, 'yyyy-MM-dd')}">2025-10-05</span>
+                        </span>
+                        <div class="note-list-tags">
+                            <span class="list-tag">#Study</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="note-list-arrow">→</div>
+            </div>
+        </div>
+
+        <!-- Grid View (Hidden by default) -->
+        <div id="gridView" class="notes-grid hidden">
+            <div class="note-card" th:each="note : ${listNotes}" 
+                 th:onclick="'location.href=\'/notes/' + ${note.id} + '\''">
+                <div class="note-card-indicator"></div>
+                <h3 class="note-card-title" th:text="${note.title}">노트 제목</h3>
+                <p class="note-card-preview" th:text="${#strings.abbreviate(note.content, 150)}">노트 내용 미리보기...</p>
+                <div class="note-card-footer">
+                    <span class="card-date" th:text="${#temporals.format(note.updatedAt, 'yyyy-MM-dd')}">2025-10-05</span>
+                    <span class="list-tag">#Study</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Add Note Button -->
+        <button class="add-note-btn" th:onclick="'location.href=\'/notes/new?userId=' + ${userId} + '\''">
+            <span class="plus-icon"></span>
+        </button>
+    </main>
+
+    <script th:src="@{/js/note/common.js}"></script>
+    <script th:src="@{/js/note/list.js}"></script>
+</body>
+</html>
