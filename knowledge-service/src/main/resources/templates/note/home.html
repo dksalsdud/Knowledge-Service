@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Notes - Notiva</title>
+    <link rel="stylesheet" th:href="@{/css/note/common.css}">
+    <link rel="stylesheet" th:href="@{/css/note/home.css}">
+    <link rel="stylesheet" th:href="@{/css/animations.css}">
+</head>
+<body>
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <a th:href="@{/notes(userId=${userId})}" class="sidebar-icon active" title="홈">
+            <span class="icon-content">🏠</span>
+        </a>
+        <a th:href="@{/notes/list(userId=${userId})}" class="sidebar-icon" title="전체 노트">
+            <span class="icon-content">📋</span>
+        </a>
+        <div class="sidebar-icon" title="검색">
+            <span class="icon-content">🔍</span>
+        </div>
+        <div class="sidebar-icon" title="설정">
+            <span class="icon-content">⚙️</span>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="header fade-in">
+            <div class="header-left">
+                <h1>My Notes</h1>
+                <p class="header-subtitle">당신의 아이디어를 기록하세요</p>
+            </div>
+            <a href="#" class="logout-btn">
+                <span>Logout</span>
+                <span class="logout-icon">→</span>
+            </a>
+        </div>
+
+        <div class="notes-grid slide-up">
+            <div class="note-card" th:each="note : ${listNotes}" 
+                 th:onclick="'location.href=\'/notes/' + ${note.id} + '\''">
+                <div class="note-card-header">
+                    <div class="note-indicator"></div>
+                </div>
+                <div class="note-lines">
+                    <div class="note-line"></div>
+                    <div class="note-line"></div>
+                    <div class="note-line"></div>
+                    <div class="note-line"></div>
+                </div>
+                <div class="note-footer">
+                    <span class="note-date">최근 수정</span>
+                    <div class="note-footer-line"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Add Note Button -->
+        <button class="add-note-btn" th:onclick="'location.href=\'/notes/new?userId=' + ${userId} + '\''">
+            <span class="plus-icon"></span>
+        </button>
+    </main>
+
+    <script th:src="@{/js/note/common.js}"></script>
+</body>
+</html>
