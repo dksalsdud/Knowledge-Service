@@ -24,7 +24,7 @@ public class BookmarkController {
      * @param model 뷰에 전달할 데이터 모델
      * @return 북마크 목록 페이지 뷰
      */
-    @GetMapping
+    @GetMapping("/list")
     public String getBookmarkListPage(@RequestParam Long userId, Model model) {
         
         model.addAttribute("bookmarks", bookmarkService.getUserBookmarks(userId));
