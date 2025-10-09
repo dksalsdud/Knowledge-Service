@@ -31,4 +31,13 @@ public interface BookmarkRepository extends JpaRepository<Long, Bookmark>{
      * @return 북마크 개수
      */
     Long countByUser_Id(Long userId);
+
+    /**
+     * 특정 사용자가 특정 노트를 북마크했는지 확인
+     * 
+     * @param userId 사용자 ID
+     * @param noteId 노트 ID
+     * @return 북마크 존재 여부
+     */
+    boolean existsByUser_IdAndNote_Id(Long userId, Long noteId);
 }
