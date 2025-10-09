@@ -10,6 +10,7 @@ import com.example.knowledge_service.bookmark.domain.Bookmark;
 import com.example.knowledge_service.bookmark.dto.BookmarkDTO;
 import com.example.knowledge_service.bookmark.repository.BookmarkRepository;
 import com.example.knowledge_service.note.domain.Note;
+import com.example.knowledge_service.note.repository.NoteRepository;
 import com.example.knowledge_service.user.repository.UserRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -21,6 +22,7 @@ public class BookmarkService {
 
     private final BookmarkRepository bookmarkRepository;
     private final UserRepository userRepository;
+    private final NoteRepository noteRepository;
 
     /**
      * 특정 사용자의 모든 북마크 목록 조회
