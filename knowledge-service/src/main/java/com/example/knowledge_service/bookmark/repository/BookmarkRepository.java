@@ -8,7 +8,7 @@ import org.springframework.data.repository.query.Param;
 
 import com.example.knowledge_service.bookmark.domain.Bookmark;
 
-public interface BookmarkRepository extends JpaRepository<Long, Bookmark>{
+public interface BookmarkRepository extends JpaRepository<Bookmark, Long>{
     
     /**
      * 특정 사용자의 모든 북마크를 최신순으로 조회 (노트 정보 포함)
