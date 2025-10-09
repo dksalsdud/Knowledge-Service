@@ -24,5 +24,11 @@ public interface BookmarkRepository extends JpaRepository<Long, Bookmark>{
            "ORDER BY b.createdAt DESC")
     List<Bookmark> findAllByUserIdWithNote(@Param("userId") Long userId);
 
-    
+    /**
+     * 특정 사용자의 북마크 개수 조회
+     * 
+     * @param userId 사용자 ID
+     * @return 북마크 개수
+     */
+    Long countByUser_Id(Long userId);
 }
