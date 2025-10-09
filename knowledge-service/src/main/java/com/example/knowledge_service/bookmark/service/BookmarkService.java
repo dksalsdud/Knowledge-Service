@@ -32,4 +32,15 @@ public class BookmarkService {
                 .map(BookmarkDTO::from)
                 .collect(Collectors.toList());
     }
+
+    /**
+     * 특정 사용자의 북마크 개수 조회
+     * 
+     * @param userId 사용자 ID
+     * @return 북마크 개수
+     */
+    public Long getUserBookmarkCount(Long userId) {
+
+        return bookmarkRepository.countByUser_Id(userId);
+    }
 }
