@@ -147,4 +147,15 @@ public class BookmarkService {
             return true;
         }
     }
+
+    /**
+     * 특정 노트의 북마크 개수 조회
+     * 
+     * @param noteId 노트 ID
+     * @return 북마크 개수
+     */
+    public Long getNoteBookmarkCount(Long noteId) {
+        Long count = bookmarkRepository.countByNote_Id(noteId);
+        return count;
+    }
 }
