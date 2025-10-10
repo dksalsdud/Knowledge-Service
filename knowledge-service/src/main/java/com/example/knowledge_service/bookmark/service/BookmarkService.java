@@ -91,4 +91,21 @@ public class BookmarkService {
         
         bookmarkRepository.save(bookmark);
     }
+
+    /**
+     * 북마크 삭제 (북마크 ID로)
+     * 
+     * @param bookmarkId 북마크 ID
+     * @throws AppException(ErrorCode.BOOKMARK_NOT_FOUND) 북마크를 찾을 수 없는 경우
+     */
+    @Transactional
+    public void removeBookmark(Long bookmarkId) {
+        
+        Bookmark bookmark = bookmarkRepository.findById(bookmarkId)
+                .orElseThrow(() -> {
+                    return new AppException(ErrorCode.BOOKMARK_NOT_FOUND, bookmarkId + " 북마크를 찾을 수 없습니다.");
+                });
+        
+        bookmarkRepository.delete(bookmark);
+    }
 }
