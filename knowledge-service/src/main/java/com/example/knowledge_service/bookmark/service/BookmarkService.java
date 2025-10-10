@@ -60,7 +60,7 @@ public class BookmarkService {
      * @param userId 사용자 ID
      * @param noteId 노트 ID
      * @return 생성된 북마크 DTO
-     * @throws BookmarkAlreadyExistsException 이미 북마크가 존재하는 경우
+     * @throws AppException(ErrorCode.BOOKMARK_ALREADY_EXISTS) 이미 북마크가 존재하는 경우
      */
     @Transactional
     public void addBookmark(Long userId, Long noteId) {
