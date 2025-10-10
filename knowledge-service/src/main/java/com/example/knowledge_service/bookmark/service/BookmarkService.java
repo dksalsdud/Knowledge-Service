@@ -126,4 +126,25 @@ public class BookmarkService {
         
         bookmarkRepository.delete(bookmark);
     }
+
+    /**
+     * 북마크 토글 (있으면 삭제, 없으면 추가)
+     * 
+     * @param userId 사용자 ID
+     * @param noteId 노트 ID
+     * @return 북마크 추가 여부 (true: 추가됨, false: 삭제됨)
+     */
+    @Transactional
+    public boolean toggleBookmark(Long userId, Long noteId) {
+        
+        if (bookmarkRepository.existsByUser_IdAndNote_Id(userId, noteId)) {
+            // 이미 존재하면 삭제
+            removeBookmarkByUserAndNote(userId, noteId);
+            return false;
+        } else {
+            // 없으면 추가
+            addBookmark(userId, noteId);
+            return true;
+        }
+    }
 }
