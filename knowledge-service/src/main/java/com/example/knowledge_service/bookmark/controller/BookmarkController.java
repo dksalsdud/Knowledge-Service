@@ -4,6 +4,7 @@ package com.example.knowledge_service.bookmark.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -55,5 +56,25 @@ public class BookmarkController {
         redirectAttributes.addFlashAttribute("successMessage", "북마크가 성공적으로 추가되었습니다.");
         
         return "redirect:/notes/" + noteId; // 성공 시 상세 페이지 등으로 이동
+    }
+
+     /**
+     * 북마크 삭제 처리 (북마크 ID로)
+     * 
+     * @param bookmarkId 북마크 ID
+     * @param userId 사용자 ID
+     * @param redirectAttributes 리다이렉트 시 전달할 속성
+     * @return 북마크 목록으로 리다이렉트
+     */
+    @PostMapping("/remove/{bookmarkId}")
+    public String removeBookmark(@PathVariable Long bookmarkId,
+                                @RequestParam Long userId,
+                                RedirectAttributes redirectAttributes) {
+        
+        bookmarkService.removeBookmark(bookmarkId);
+        
+        redirectAttributes.addFlashAttribute("message", "북마크가 삭제되었습니다.");
+        
+        return "redirect:/bookmarks/list?userId=" + userId;
     }
 }
