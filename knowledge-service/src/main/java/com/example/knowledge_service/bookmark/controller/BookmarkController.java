@@ -78,4 +78,24 @@ public class BookmarkController {
         
         return "redirect:/bookmarks/list?userId=" + userId;
     }
+
+    /**
+     * 북마크 삭제 처리 (사용자 ID와 노트 ID로)
+     * 
+     * @param userId 사용자 ID
+     * @param noteId 노트 ID
+     * @param redirectAttributes 리다이렉트 시 전달할 속성
+     * @return 노트 상세 페이지로 리다이렉트
+     */
+    @PostMapping("/remove")
+    public String removeBookmarkByNote(@RequestParam Long userId,
+                                      @RequestParam Long noteId,
+                                      RedirectAttributes redirectAttributes) {
+        
+        bookmarkService.removeBookmarkByUserAndNote(userId, noteId);
+        
+        redirectAttributes.addFlashAttribute("message", "북마크가 삭제되었습니다.");
+        
+        return "redirect:/notes" + noteId;
+    }
 }
