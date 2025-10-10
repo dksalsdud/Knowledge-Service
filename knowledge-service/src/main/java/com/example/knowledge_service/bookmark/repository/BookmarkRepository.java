@@ -50,4 +50,12 @@ public interface BookmarkRepository extends JpaRepository<Bookmark, Long>{
      * @return 북마크 엔티티
      */
     Optional<Bookmark> findByUser_IdAndNote_Id(Long userId, Long noteId);
+
+    /**
+     * 특정 노트의 북마크 개수 조회
+     * 
+     * @param noteId 노트 ID
+     * @return 북마크 개수
+     */
+    Long countByNote_Id(Long noteId);
 }
