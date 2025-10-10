@@ -98,4 +98,26 @@ public class BookmarkController {
         
         return "redirect:/notes" + noteId;
     }
+
+    /**
+     * 북마크 토글 처리 (있으면 삭제, 없으면 추가)
+     * AJAX 요청용  ?? 은 잘 모르겠음
+     * 
+     * @param userId 사용자 ID
+     * @param noteId 노트 ID
+     * @param redirectAttributes 리다이렉트 시 전달할 속성
+     * @return 노트 상세 페이지로 이동
+     */
+    @PostMapping("/toggle")
+    public String toggleBookmark(@RequestParam Long userId,
+                                @RequestParam Long noteId,
+                                RedirectAttributes redirectAttributes) {
+        
+        boolean added = bookmarkService.toggleBookmark(userId, noteId);
+        
+        String message = added ? "북마크에 추가되었습니다." : "북마크가 해제되었습니다.";
+        redirectAttributes.addFlashAttribute("message", message);
+        
+        return "redirect:/notes/" + noteId;
+    }
 }
