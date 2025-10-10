@@ -1,6 +1,7 @@
 package com.example.knowledge_service.bookmark.repository;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -40,4 +41,13 @@ public interface BookmarkRepository extends JpaRepository<Bookmark, Long>{
      * @return 북마크 존재 여부
      */
     boolean existsByUser_IdAndNote_Id(Long userId, Long noteId);
+
+    /**
+     * 특정 사용자의 특정 노트 북마크 조회
+     * 
+     * @param userId 사용자 ID
+     * @param noteId 노트 ID
+     * @return 북마크 엔티티
+     */
+    Optional<Bookmark> findByUser_IdAndNote_Id(Long userId, Long noteId);
 }
