@@ -108,4 +108,22 @@ public class BookmarkService {
         
         bookmarkRepository.delete(bookmark);
     }
+
+    /**
+     * 북마크 삭제 (사용자 ID와 노트 ID로)
+     * 
+     * @param userId 사용자 ID
+     * @param noteId 노트 ID
+     * @throws BookmarkNotFoundException 북마크를 찾을 수 없는 경우
+     */
+    @Transactional
+    public void removeBookmarkByUserAndNote(Long userId, Long noteId) {
+        
+        Bookmark bookmark = bookmarkRepository.findByUser_IdAndNote_Id(userId, noteId)
+                .orElseThrow(() -> {
+                    return new AppException(ErrorCode.BOOKMARK_NOT_FOUND, userId + " 사용자의 " + noteId + " 노트에 대한 북마크를 찾을 수 없습니다.");
+                });
+        
+        bookmarkRepository.delete(bookmark);
+    }
 }
