@@ -3,6 +3,7 @@ package com.example.knowledge_service.bookmark.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -66,7 +67,7 @@ public class BookmarkController {
      * @param redirectAttributes 리다이렉트 시 전달할 속성
      * @return 북마크 목록으로 리다이렉트
      */
-    @PostMapping("/remove/{bookmarkId}")
+    @DeleteMapping("/remove/{bookmarkId}")
     public String removeBookmark(@PathVariable Long bookmarkId,
                                 @RequestParam Long userId,
                                 RedirectAttributes redirectAttributes) {
