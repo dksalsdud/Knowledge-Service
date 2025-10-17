@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>내 북마크 - Notiva</title>
+    <link rel="stylesheet" th:href="@{/css/bookmark/style.css}">
+    <link rel="stylesheet" th:href="@{/css/bookmark/animations.css}">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="#" th:href="@{/home}" class="logo">Notiva</a>
+            <div class="nav-links">
+                <a href="#" th:href="@{/notes/list(userId=${userId})}">내 노트</a>
+                <a href="#" th:href="@{/bookmarks/list(userId=${userId})}" class="active">북마크</a>
+                <a href="#" th:href="@{/profile(userId=${userId})}">프로필</a>
+                <a href="#" th:href="@{/logout}" class="logout-btn">로그아웃</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Header Section -->
+    <header class="page-header fade-in">
+        <div class="header-content">
+            <h1>📚 내 북마크</h1>
+            <p class="header-subtitle">저장한 노트를 모아보세요</p>
+            <div class="bookmark-count">
+                <span class="count-number" th:text="${bookmarkCount}">0</span>
+                <span class="count-label">개의 북마크</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Bookmarks Section -->
+    <section class="bookmarks-section">
+        <div class="container">
+            <!-- Empty State -->
+            <div class="empty-state slide-up" th:if="${#lists.isEmpty(bookmarks)}">
+                <div class="empty-icon">📭</div>
+                <h3>아직 북마크한 노트가 없습니다</h3>
+                <p>마음에 드는 노트를 북마크해보세요!</p>
+                <a th:href="@{/notes/explore}" class="btn btn-primary">노트 둘러보기</a>
+            </div>
+
+            <!-- Bookmark List -->
+            <div class="bookmark-list" th:unless="${#lists.isEmpty(bookmarks)}">
+                <div class="bookmark-card slide-up" 
+                     th:each="bookmark, iterStat : ${bookmarks}"
+                     th:attr="style=${'animation-delay: ' + (iterStat.index * 0.1) + 's'}">
+                    
+                    <div class="bookmark-header">
+                        <a th:href="@{/notes/{id}(id=${bookmark.noteId})}" class="bookmark-title">
+                            <h3 th:text="${bookmark.noteTitle}">노트 제목</h3>
+                        </a>
+                        <button class="bookmark-remove-btn" 
+                                onclick="removeBookmark(this)"
+                                th:attr="data-bookmark-id=${bookmark.bookmarkId}, 
+                                         data-user-id=${userId}">
+                            <span class="bookmark-icon">🗑️</span>
+                        </button>
+                    </div>
+
+                    <p class="bookmark-preview" th:text="${bookmark.notePreview}">
+                        노트 내용 미리보기...
+                    </p>
+
+                    <div class="bookmark-meta">
+                        <div class="meta-item">
+                            <span class="meta-icon">✍️</span>
+                            <span class="meta-text" th:text="${bookmark.authorName}">작성자</span>
+                        </div>
+                        <div class="meta-item">
+                            <span class="meta-icon">📝</span>
+                            <span class="meta-text" 
+                                  th:text="${#temporals.format(bookmark.noteCreatedAt, 'yyyy.MM.dd')}">
+                                2025.01.01
+                            </span>
+                        </div>
+                        <div class="meta-item">
+                            <span class="meta-icon">🔖</span>
+                            <span class="meta-text" 
+                                  th:text="${#temporals.format(bookmark.bookmarkedAt, 'yyyy.MM.dd')}">
+                                2025.01.01
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="bookmark-actions">
+                        <a th:href="@{/notes/{id}(id=${bookmark.noteId})}" class="btn-view">
+                            노트 보기
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>© 2025 Notiva. All rights reserved.</p>
+    </footer>
+
+    <!-- Toast Message -->
+    <div class="toast" id="toast" th:if="${message}">
+        <span th:text="${message}">메시지</span>
+    </div>
+
+    <script th:src="@{/js/bookmark/bookmark.js}"></script>
+</body>
+</html>
