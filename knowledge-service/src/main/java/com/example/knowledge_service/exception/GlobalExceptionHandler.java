@@ -34,7 +34,14 @@ public class GlobalExceptionHandler {
      */
     @ExceptionHandler(Exception.class)
     public String handleGeneralException(Exception ex, RedirectAttributes redirectAttributes, HttpServletRequest request) {
-
+        
+        // ✅ 추가: 예외를 로깅하여 실제 원인을 파악
+        System.err.println("=== 예상치 못한 예외 발생 ===");
+        System.err.println("예외 타입: " + ex.getClass().getName());
+        System.err.println("메시지: " + ex.getMessage());
+        ex.printStackTrace();
+        System.err.println("========================");
+        
         redirectAttributes.addFlashAttribute("errorMessage", "알 수 없는 오류가 발생했습니다. 잠시 후 다시 시도해주세요.");
         String referer = request.getHeader("Referer");
         return "redirect:" + (referer != null ? referer : "/");
