@@ -1,9 +1,13 @@
 package com.example.knowledge_service.note.domain;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
+import com.example.knowledge_service.bookmark.domain.Bookmark;
 import com.example.knowledge_service.user.domain.User;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -13,6 +17,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.Lob;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.PreUpdate;
 import lombok.AllArgsConstructor;
@@ -95,4 +100,9 @@ public class Note {
     protected void onUpdate() {
         this.updatedAt = LocalDateTime.now();
     }
+
+    // ✅ 필수: 사용자가 북마크한 모든 북마크
+    @OneToMany(mappedBy = "note", cascade = CascadeType.REMOVE)
+    @Builder.Default
+    private List<Bookmark> bookmarks = new ArrayList<>();
 }
