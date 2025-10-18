@@ -16,7 +16,7 @@ import com.example.knowledge_service.bookmark.service.BookmarkService;
 import lombok.RequiredArgsConstructor;
 
 @Controller
-@RequestMapping("/boomarks")
+@RequestMapping("/bookmarks")
 @RequiredArgsConstructor
 public class BookmarkController {
     
@@ -30,7 +30,7 @@ public class BookmarkController {
      * @return 북마크 목록 페이지 뷰
      */
     @GetMapping("/list")
-    public String getBookmarkListPage(@RequestParam Long userId, Model model) {
+    public String getBookmarkListPage(@RequestParam("userId") Long userId, Model model) {
         
         model.addAttribute("bookmarks", bookmarkService.getUserBookmarks(userId));
         model.addAttribute("userId", userId);
@@ -48,8 +48,8 @@ public class BookmarkController {
      * @return 이전 페이지로 리다이렉트
      */
     @PostMapping("/add")
-    public String addBookmark(@RequestParam Long userId,
-                             @RequestParam Long noteId,
+    public String addBookmark(@RequestParam("userId") Long userId,
+                             @RequestParam("noteId") Long noteId,
                              RedirectAttributes redirectAttributes) {
         
         bookmarkService.addBookmark(userId, noteId);
@@ -68,8 +68,8 @@ public class BookmarkController {
      * @return 북마크 목록으로 리다이렉트
      */
     @DeleteMapping("/remove/{bookmarkId}")
-    public String removeBookmark(@PathVariable Long bookmarkId,
-                                @RequestParam Long userId,
+    public String removeBookmark(@PathVariable("bookmarkId") Long bookmarkId,
+                                @RequestParam("userId") Long userId,
                                 RedirectAttributes redirectAttributes) {
         
         bookmarkService.removeBookmark(bookmarkId);
@@ -87,16 +87,16 @@ public class BookmarkController {
      * @param redirectAttributes 리다이렉트 시 전달할 속성
      * @return 노트 상세 페이지로 리다이렉트
      */
-    @PostMapping("/remove")
-    public String removeBookmarkByNote(@RequestParam Long userId,
-                                      @RequestParam Long noteId,
+    @DeleteMapping("/remove")
+    public String removeBookmarkByNote(@RequestParam("userId") Long userId,
+                                      @RequestParam("noteId") Long noteId,
                                       RedirectAttributes redirectAttributes) {
         
         bookmarkService.removeBookmarkByUserAndNote(userId, noteId);
         
         redirectAttributes.addFlashAttribute("message", "북마크가 삭제되었습니다.");
         
-        return "redirect:/notes" + noteId;
+        return "redirect:/notes/" + noteId;
     }
 
     /**
@@ -109,8 +109,8 @@ public class BookmarkController {
      * @return 노트 상세 페이지로 이동
      */
     @PostMapping("/toggle")
-    public String toggleBookmark(@RequestParam Long userId,
-                                @RequestParam Long noteId,
+    public String toggleBookmark(@RequestParam("userId") Long userId,
+                                @RequestParam("noteId") Long noteId,
                                 RedirectAttributes redirectAttributes) {
         
         boolean added = bookmarkService.toggleBookmark(userId, noteId);
