@@ -1,5 +1,7 @@
 package com.example.knowledge_service.note.domain;
 
+import java.time.LocalDateTime;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -51,4 +53,11 @@ public class Note {
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private NoteVisibility visibility;
+
+    /**
+     * 노트 생성 시간
+     * 자동으로 현재 시간이 설정됨
+     */
+    @Column(nullable = false, updatable = false)
+    private LocalDateTime createdAt;
 }
