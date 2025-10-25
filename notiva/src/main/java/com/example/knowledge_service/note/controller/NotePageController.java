@@ -3,6 +3,7 @@ package com.example.knowledge_service.note.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -31,5 +32,18 @@ public class NotePageController {
 
         return "note/list";
     }
-    
+
+    /**
+     * 노트 상세 페이지 조회
+     * @param id 노트 ID
+     * @param model 뷰에 전달할 데이터 모델
+     * @return 노트 상세 페이지 뷰
+     */
+    @GetMapping("/{id}")
+    public String getNoteDetailPage(@PathVariable("id") Long id, Model model) {
+
+        model.addAttribute("detailNote", noteService.getDetailNote(id));
+
+        return "note/detail";
+    }
 }
