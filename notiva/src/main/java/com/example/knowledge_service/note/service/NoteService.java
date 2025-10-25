@@ -65,7 +65,7 @@ public class NoteService {
 
        User user = userRepository.findById(userId)
                 .orElseThrow(() -> {
-                    return new AppException(ErrorCode.USER_NOT_FOUND, "해당 사용자를 찾을 수 없습니다. userId = " + userId);
+                    return new AppException(ErrorCode.USER_NOT_FOUND, "해당 사용자를 찾을 수 없습니다. User_Id = " + userId);
                 });
 
         Note note = Note.builder()
@@ -89,7 +89,7 @@ public class NoteService {
 
         Note note = noteRepository.findById(id)
                 .orElseThrow(() -> {
-                    return new AppException(ErrorCode.NOTE_NOT_FOUND, "해당 노트가 존재하지 않습니다. noteId : " + id);
+                    return new AppException(ErrorCode.NOTE_NOT_FOUND, "해당 노트가 존재하지 않습니다. Note_Id = " + id);
                 });
 
         note.setTitle(noteDTO.getTitle());
@@ -109,7 +109,7 @@ public class NoteService {
 
 		Note note = noteRepository.findById(id)
                 .orElseThrow(() -> {
-                    return new AppException(ErrorCode.NOTE_NOT_FOUND, "해당 노트가 존재하지 않습니다. noteId = " + id);
+                    return new AppException(ErrorCode.NOTE_NOT_FOUND, "해당 노트가 존재하지 않습니다. Note_Id = " + id);
                 });
 
         noteRepository.delete(note);
