@@ -31,13 +31,13 @@ public class NoteService {
      * 노트 상세 정보 조회
      * @param id 노트 ID
      * @return 노트 엔티티
-     * @throws RuntimeException 노트를 찾을 수 없을 경우
+     * @throws NOTE_NOT_FOUND 노트를 찾을 수 없을 경우
      */
     public Note getDetailNote(Long id) {
 
         return noteRepository.findById(id)
                 .orElseThrow(() -> {
-                    return new AppException(ErrorCode.NOTE_NOT_FOUND, id + " 를 찾을 수 없습니다.");
+                    return new AppException(ErrorCode.NOTE_NOT_FOUND, "해당 노트를 찾을 수 없습니다. Note_Id = " + id);
                 });
     }
 }
