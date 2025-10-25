@@ -2,14 +2,19 @@ package com.example.knowledge_service.note.domain;
 
 import java.time.LocalDateTime;
 
+import com.example.knowledge_service.user.domain.User;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.Lob;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.PreUpdate;
 import lombok.AllArgsConstructor;
@@ -78,6 +83,14 @@ public class Note {
     @Builder.Default
     @Column(nullable = false)
     private long viewCount = 0;
+
+    /**
+     * 노트 작성자
+     * User 엔티티와 다대일 관계
+     */
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
 
     /**
      * 엔티티 저장 전 실행
