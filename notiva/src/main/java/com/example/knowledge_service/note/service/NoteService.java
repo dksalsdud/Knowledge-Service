@@ -46,7 +46,7 @@ public class NoteService {
                 });
     }
 
-     /**
+    /**
      * 새로운 노트 생성
      * @param noteDTO 노트 생성 데이터
      * @param userId 사용자 ID
