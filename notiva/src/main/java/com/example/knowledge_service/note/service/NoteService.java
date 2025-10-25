@@ -40,10 +40,18 @@ public class NoteService {
      */
     public Note getDetailNote(Long id) {
 
-        return noteRepository.findById(id)
-                .orElseThrow(() -> {
-                    return new AppException(ErrorCode.NOTE_NOT_FOUND, "해당 노트를 찾을 수 없습니다. Note_Id = " + id);
-                });
+        Note note = noteRepository.findById(id)
+            .orElseThrow(() -> {
+                return new AppException(ErrorCode.NOTE_NOT_FOUND, "해당 노트를 찾을 수 없습니다. Note_Id = " + id);
+            });
+        
+        // 방문자 수 증가
+        note.setViewCount(note.getViewCount() + 1);
+
+        // 업데이트된 노트를 저장
+        noteRepository.save(note);
+
+        return note;
     }
 
     /**
