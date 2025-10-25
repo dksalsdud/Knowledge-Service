@@ -8,6 +8,7 @@ import com.example.knowledge_service.exception.AppException;
 import com.example.knowledge_service.exception.ErrorCode;
 import com.example.knowledge_service.note.domain.Note;
 import com.example.knowledge_service.note.repository.NoteRepository;
+import com.example.knowledge_service.user.repository.UserRepository;
 
 import lombok.RequiredArgsConstructor;
 
@@ -16,6 +17,7 @@ import lombok.RequiredArgsConstructor;
 public class NoteService {
     
     private final NoteRepository noteRepository;
+    private final UserRepository userRepository;
 
     /**
      * 특정 사용자의 모든 노트 목록 조회
