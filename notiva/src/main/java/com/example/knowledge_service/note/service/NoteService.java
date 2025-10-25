@@ -90,4 +90,20 @@ public class NoteService {
 
         noteRepository.save(note);
 	}
+
+    /**
+     * 노트 삭제
+     * @param id 노트 ID
+     * @throws NOTE_NOT_FOUND 노트를 찾을 수 없을 경우
+     */
+    @Transactional
+	public void deleteNote(Long id) {
+
+		Note note = noteRepository.findById(id)
+                .orElseThrow(() -> {
+                    return new AppException(ErrorCode.NOTE_NOT_FOUND, "해당 노트가 존재하지 않습니다. noteId = " + id);
+                });
+
+        noteRepository.delete(note);
+	}
 }
