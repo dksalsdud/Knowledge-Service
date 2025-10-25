@@ -88,4 +88,13 @@ public class Note {
         this.createdAt = LocalDateTime.now();
         this.updatedAt = LocalDateTime.now();
     }
+
+    /**
+     * 엔티티 업데이트 전 실행
+     * 수정 시간을 현재 시간으로 업데이트
+     */
+    @PreUpdate
+    protected void onUpdate() {
+        this.updatedAt = LocalDateTime.now();
+    }
 }
