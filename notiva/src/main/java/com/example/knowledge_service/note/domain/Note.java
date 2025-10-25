@@ -1,5 +1,6 @@
 package com.example.knowledge_service.note.domain;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -24,5 +25,12 @@ public class Note {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    /**
+     * 노트 제목
+     * 최대 100자까지 입력 가능
+     */
+    @Column(nullable = false, length = 100)
+    private String title;
     
 }
