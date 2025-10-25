@@ -2,6 +2,8 @@ package com.example.knowledge_service.note.domain;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -34,11 +36,19 @@ public class Note {
     @Column(nullable = false, length = 100)
     private String title;
     
-     /**
+    /**
      * 노트 내용
      * 대용량 텍스트를 저장하기 위해 LONGTEXT 타입 사용
      */
     @Lob
     @Column(nullable = false, columnDefinition = "LONGTEXT")
     private String content;
+
+    /**
+     * 노트 공개 여부
+     * 노트 검색에 띄울지 말지를 결정하는 컬럼
+     */
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    private NoteVisibility visibility;
 }
