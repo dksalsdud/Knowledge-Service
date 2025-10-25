@@ -2,6 +2,7 @@ package com.example.knowledge_service.note.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -77,5 +78,19 @@ public class NoteCRUDController {
         noteService.updateNote(id, noteDTO);
         
         return "redirect:/note/" + id;
+    }
+
+    /**
+     * 노트 삭제 처리
+     * @param id 노트 ID
+     * @param userId 사용자 ID
+     * @return 노트 리스트 페이지로 리다이렉트
+     */
+    @DeleteMapping("{id}")
+    public String delelteNote(@PathVariable("id") Long id, @RequestParam(value = "userId") Long userId) {
+
+        noteService.deleteNote(id);
+
+        return "redirect:/note/list?userId=" + userId;
     }
 }
