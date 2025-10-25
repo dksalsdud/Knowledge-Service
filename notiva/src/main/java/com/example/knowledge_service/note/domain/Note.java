@@ -60,4 +60,11 @@ public class Note {
      */
     @Column(nullable = false, updatable = false)
     private LocalDateTime createdAt;
+
+    /**
+     * 노트 최종 수정 시간
+     * 수정 시마다 자동으로 업데이트됨
+     */
+    @Column(nullable = false)
+    private LocalDateTime updatedAt;
 }
