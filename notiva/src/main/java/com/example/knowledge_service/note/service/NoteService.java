@@ -3,11 +3,14 @@ package com.example.knowledge_service.note.service;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.example.knowledge_service.exception.AppException;
 import com.example.knowledge_service.exception.ErrorCode;
 import com.example.knowledge_service.note.domain.Note;
+import com.example.knowledge_service.note.dto.NoteDTO;
 import com.example.knowledge_service.note.repository.NoteRepository;
+import com.example.knowledge_service.user.domain.User;
 import com.example.knowledge_service.user.repository.UserRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -41,5 +44,29 @@ public class NoteService {
                 .orElseThrow(() -> {
                     return new AppException(ErrorCode.NOTE_NOT_FOUND, "해당 노트를 찾을 수 없습니다. Note_Id = " + id);
                 });
+    }
+
+     /**
+     * 새로운 노트 생성
+     * @param noteDTO 노트 생성 데이터
+     * @param userId 사용자 ID
+     * @throws USER_NOT_FOUND 사용자를 찾을 수 없을 경우
+     */
+    @Transactional
+    public void createNewNote(NoteDTO noteDTO, Long userId) {
+
+       User user = userRepository.findById(userId)
+                .orElseThrow(() -> {
+                    return new AppException(ErrorCode.USER_NOT_FOUND, "해당 사용자를 찾을 수 없습니다. userId = " + userId);
+                });
+
+        Note note = Note.builder()
+                .title(noteDTO.getTitle())
+                .content(noteDTO.getContent())
+                .visibility(noteDTO.getVisibility())
+                .user(user)
+                .build();
+
+        noteRepository.save(note);
     }
 }
