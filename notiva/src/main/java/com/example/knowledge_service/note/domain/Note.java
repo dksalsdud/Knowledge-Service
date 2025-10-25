@@ -67,4 +67,12 @@ public class Note {
      */
     @Column(nullable = false)
     private LocalDateTime updatedAt;
+
+    /**
+     * 노트 방문수
+     * 노트 페이지를 조회 할 때마다 숫자가 늘어난다
+     * 최초 생성시 기본 값 0
+     */
+    @Column(nullable = false)
+    private long viewCount = 0L;
 }
