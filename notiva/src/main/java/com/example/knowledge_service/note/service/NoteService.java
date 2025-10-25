@@ -69,4 +69,25 @@ public class NoteService {
 
         noteRepository.save(note);
     }
+
+    /**
+     * 노트 수정
+     * @param id 노트 ID
+     * @param noteDTO 수정할 노트 데이터
+     * @throws NOTE_NOT_FOUND 노트를 찾을 수 없을 경우
+     */
+    @Transactional
+	public void updateNote(Long id, NoteDTO noteDTO) {
+
+        Note note = noteRepository.findById(id)
+                .orElseThrow(() -> {
+                    return new AppException(ErrorCode.NOTE_NOT_FOUND, "해당 노트가 존재하지 않습니다. noteId : " + id);
+                });
+
+        note.setTitle(noteDTO.getTitle());
+        note.setContent(noteDTO.getContent());
+        // updatedAt은 @PreUpdate에서 자동으로 업데이트됨
+
+        noteRepository.save(note);
+	}
 }
