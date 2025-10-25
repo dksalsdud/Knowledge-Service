@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -62,5 +63,19 @@ public class NoteCRUDController {
         model.addAttribute("note", noteService.getDetailNote(id));
 
         return "note/update";
+    }
+
+    /**
+     * 노트 수정 처리
+     * @param id 노트 ID
+     * @param noteDTO 수정할 노트 데이터
+     * @return 노트 상세 페이지로 리다이렉트
+     */
+    @PutMapping("update/{id}")
+    public String putUpdateNote(@PathVariable("id") Long id, @ModelAttribute NoteDTO noteDTO) {
+        
+        noteService.updateNote(id, noteDTO);
+        
+        return "redirect:/note/" + id;
     }
 }
