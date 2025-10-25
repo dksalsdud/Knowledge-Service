@@ -13,7 +13,7 @@ import lombok.RequiredArgsConstructor;
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/note")
-public class NoteController {
+public class NotePageController {
 
     private final NoteService noteService;
 
