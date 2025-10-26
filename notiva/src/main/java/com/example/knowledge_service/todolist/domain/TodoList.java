@@ -25,16 +25,20 @@ public class TodoList {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    // 제목
     @Column(nullable = false, length = 100)
     private String title;
 
+    // 완수 여부
     @Column(nullable = false)
     @Builder.Default
     private TodoComplete complete = TodoComplete.FAIL;
 
+    // 시작 날짜
     @Column(nullable = false)
     private LocalDateTime startDay;
 
+    // 끝나는 날짜
     @Column(nullable = false)
     private LocalDateTime endDay;
 }
