@@ -1,5 +1,7 @@
 package com.example.knowledge_service.todolist.domain;
 
+import java.time.LocalDateTime;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -29,4 +31,7 @@ public class TodoList {
     @Column(nullable = false)
     @Builder.Default
     private TodoComplete complete = TodoComplete.FAIL;
+
+    @Column(nullable = false)
+    private LocalDateTime startDay;
 }
