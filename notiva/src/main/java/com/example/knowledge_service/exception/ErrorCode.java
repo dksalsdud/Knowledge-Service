@@ -23,7 +23,10 @@ public enum ErrorCode {
 
     // 노트 관련
     NOTE_NOT_FOUND(HttpStatus.NOT_FOUND, "노트를 찾을 수 없습니다."),
-    NOTE_ACCESS_DENIED(HttpStatus.FORBIDDEN, "노트에 접근할 권한이 없습니다.");
+    NOTE_ACCESS_DENIED(HttpStatus.FORBIDDEN, "노트에 접근할 권한이 없습니다."),
+
+    //투두리스트 관련
+    TODOLIST_NOT_FOUND(HttpStatus.NOT_FOUND, "투두리스트를 찾을 수 없습니다.");
 
     private final HttpStatus status;
     private final String message;
