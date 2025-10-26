@@ -3,6 +3,7 @@ package com.example.knowledge_service.todolist.service;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.example.knowledge_service.exception.AppException;
 import com.example.knowledge_service.exception.ErrorCode;
@@ -66,5 +67,26 @@ public class TodoListService {
         .orElseThrow(() -> {
             return new AppException(ErrorCode.TODOLIST_NOT_FOUND, "해당 투두리스트가 존재 하지 않습니다. TodoId = " + todoId);
         });
+    }
+
+    /**
+     * 투두리스트 업데이트 함수
+     * @param todoId
+     * @param todoListDTO
+     */
+    @Transactional
+    public void updateTodo(Long todoId, TodoListDTO todoListDTO) {
+
+        TodoList todoList = todoListRepository.findById(todoId)
+            .orElseThrow(() -> {
+                return new AppException(ErrorCode.TODOLIST_NOT_FOUND, "해당 투두리스트가 존재 하지 않습니다. Todo_Id = " + todoId);
+            });
+
+        todoList.setTitle(todoListDTO.getTitile());
+        todoList.setComplete(todoListDTO.getComplete());
+        todoList.setStartDay(todoListDTO.getStartDay());
+        todoList.setEndDay(todoListDTO.getEndDay());
+        
+        todoListRepository.save(todoList);
     }
 }
