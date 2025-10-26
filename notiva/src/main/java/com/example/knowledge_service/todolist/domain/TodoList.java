@@ -34,4 +34,7 @@ public class TodoList {
 
     @Column(nullable = false)
     private LocalDateTime startDay;
+
+    @Column(nullable = false)
+    private LocalDateTime endDay;
 }
