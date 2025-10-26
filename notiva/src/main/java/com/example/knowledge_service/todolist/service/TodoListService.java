@@ -100,4 +100,18 @@ public class TodoListService {
  
         todoListRepository.save(todoList);
     }
+
+    /**
+     * 투두리스트 삭제 함수
+     * @param todoId
+     */
+    public void deleteTodo(Long todoId) {
+
+        TodoList todoList = todoListRepository.findById(todoId)
+                .orElseThrow(() -> {
+                    return new AppException(ErrorCode.TODOLIST_NOT_FOUND, "해당 투두리스트가 존재하지 않습니다. Todo_Id = " + todoId);
+                });
+
+        todoListRepository.delete(todoList);
+    }
 }
