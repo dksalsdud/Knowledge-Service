@@ -34,15 +34,15 @@ public class NoteService {
 
     /**
      * 노트 상세 정보 조회
-     * @param id 노트 ID
+     * @param noteId 노트 ID
      * @return 노트 엔티티
      * @throws NOTE_NOT_FOUND 노트를 찾을 수 없을 경우
      */
-    public Note getDetailNote(Long id) {
+    public Note getDetailNote(Long noteId) {
 
-        Note note = noteRepository.findById(id)
+        Note note = noteRepository.findById(noteId)
             .orElseThrow(() -> {
-                return new AppException(ErrorCode.NOTE_NOT_FOUND, "해당 노트를 찾을 수 없습니다. Note_Id = " + id);
+                return new AppException(ErrorCode.NOTE_NOT_FOUND, "해당 노트를 찾을 수 없습니다. Note_Id = " + noteId);
             });
         
         // 방문자 수 증가
@@ -80,16 +80,16 @@ public class NoteService {
 
     /**
      * 노트 수정
-     * @param id 노트 ID
+     * @param noteId 노트 ID
      * @param noteDTO 수정할 노트 데이터
      * @throws NOTE_NOT_FOUND 노트를 찾을 수 없을 경우
      */
     @Transactional
-	public void updateNote(Long id, NoteDTO noteDTO) {
+	public void updateNote(Long noteId, NoteDTO noteDTO) {
 
-        Note note = noteRepository.findById(id)
+        Note note = noteRepository.findById(noteId)
                 .orElseThrow(() -> {
-                    return new AppException(ErrorCode.NOTE_NOT_FOUND, "해당 노트가 존재하지 않습니다. Note_Id = " + id);
+                    return new AppException(ErrorCode.NOTE_NOT_FOUND, "해당 노트가 존재하지 않습니다. Note_Id = " + noteId);
                 });
 
         note.setTitle(noteDTO.getTitle());
@@ -101,15 +101,15 @@ public class NoteService {
 
     /**
      * 노트 삭제
-     * @param id 노트 ID
+     * @param noteId 노트 ID
      * @throws NOTE_NOT_FOUND 노트를 찾을 수 없을 경우
      */
     @Transactional
-	public void deleteNote(Long id) {
+	public void deleteNote(Long noteId) {
 
-		Note note = noteRepository.findById(id)
+		Note note = noteRepository.findById(noteId)
                 .orElseThrow(() -> {
-                    return new AppException(ErrorCode.NOTE_NOT_FOUND, "해당 노트가 존재하지 않습니다. Note_Id = " + id);
+                    return new AppException(ErrorCode.NOTE_NOT_FOUND, "해당 노트가 존재하지 않습니다. Note_Id = " + noteId);
                 });
 
         noteRepository.delete(note);
