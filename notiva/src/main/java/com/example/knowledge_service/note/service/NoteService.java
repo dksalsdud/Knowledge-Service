@@ -92,8 +92,13 @@ public class NoteService {
                     return new AppException(ErrorCode.NOTE_NOT_FOUND, "해당 노트가 존재하지 않습니다. Note_Id = " + noteId);
                 });
 
-        note.setTitle(noteDTO.getTitle());
-        note.setContent(noteDTO.getContent());
+        if (noteDTO.getTitle() != null) {
+            note.setTitle(noteDTO.getTitle());   
+        }
+
+        if (noteDTO.getContent() != null) {
+            note.setContent(noteDTO.getContent());
+        }          
         // updatedAt은 @PreUpdate에서 자동으로 업데이트됨
 
         noteRepository.save(note);
