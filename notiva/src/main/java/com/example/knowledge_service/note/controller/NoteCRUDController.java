@@ -87,7 +87,7 @@ public class NoteCRUDController {
      * @return 노트 리스트 페이지로 리다이렉트
      */
     @DeleteMapping("{noteId}")
-    public String delelteNote(@PathVariable("noteId") Long noteId, @RequestParam(value = "userId") Long userId) {
+    public String deleteNote(@PathVariable("noteId") Long noteId, @RequestParam(value = "userId") Long userId) {
 
         noteService.deleteNote(noteId);
 
