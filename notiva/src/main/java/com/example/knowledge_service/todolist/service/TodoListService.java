@@ -22,7 +22,7 @@ public class TodoListService {
     private final UserRepository userRepository;
 
     /**
-     * 특정 사용자의 모든 노트 목록 조회
+     * 특정 사용자의 모든 투두리스트 목록 조회
      * @param userId 사용자 ID
      * @return 투두리스트 목록
      */
