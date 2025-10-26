@@ -54,4 +54,17 @@ public class TodoListService {
 
         todoListRepository.save(todo);
     }
+
+    /**
+     * 수정하기 위한 투두리스트 디테일 조회
+     * @param todoId
+     * @throw TODOLIST_NOT_FOUND
+     */
+    public TodoList detailTodoList(Long todoId) {
+
+        return todoListRepository.findById(todoId)
+        .orElseThrow(() -> {
+            return new AppException(ErrorCode.TODOLIST_NOT_FOUND, "해당 투두리스트가 존재 하지 않습니다. TodoId = " + todoId);
+        });
+    }
 }
