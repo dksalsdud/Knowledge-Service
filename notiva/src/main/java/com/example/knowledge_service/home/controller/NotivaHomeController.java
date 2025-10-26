@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.knowledge_service.note.service.NoteService;
+import com.example.knowledge_service.todolist.service.TodoListService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -15,6 +16,7 @@ import lombok.RequiredArgsConstructor;
 public class NotivaHomeController{
 
     private final NoteService noteService;
+    private final TodoListService todoListService;
     
     /**
      * 노티바 로그인 전 홈 컨트롤러
@@ -37,6 +39,9 @@ public class NotivaHomeController{
 
         // 노트 리스트
         model.addAttribute("noteList", noteService.getListNotes(userId));
+
+        //투두 리스트
+        model.addAttribute("todoList", todoListService.getTodoLists(userId));
 
         return "/home/notiva";
     }
