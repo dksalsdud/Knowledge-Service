@@ -12,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 
@@ -46,6 +47,20 @@ public class TodoListController {
         todoListService.createTodoList(userId, todoListDTO);
         
         return "redirect:/Notiva";
+    }
+    
+    /**
+     * 투두 업데이트 페이지를 보여주는 컨트롤러
+     * @param todoId
+     * @param model
+     * @return todo/update 업데이트 페이지
+     */
+    @GetMapping("/update")
+    public String getTodoListUpdatePage(@PathVariable("todoId") Long todoId, Model model) {
+
+        model.addAttribute("detailTodo", todoListService.detailTodoList(todoId));
+
+        return "todo/update";
     }
     
 }
