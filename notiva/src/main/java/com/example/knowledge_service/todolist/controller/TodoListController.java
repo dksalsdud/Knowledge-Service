@@ -70,7 +70,7 @@ public class TodoListController {
      * @param todoListDTO
      * @return redirect 노티바 홈 페이지
      */
-    @PutMapping("/{id}")
+    @PutMapping("/{todoId}")
     public String putTodoUpdate(@PathVariable("todoId") Long todoId, @ModelAttribute TodoListDTO todoListDTO) {
         
         todoListService.updateTodo(todoId, todoListDTO);
