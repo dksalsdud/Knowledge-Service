@@ -17,7 +17,7 @@ import lombok.Setter;
 @AllArgsConstructor
 public class TodoListDTO {
 
-    private String titile;
+    private String title;
     
     private TodoComplete complete;
 
