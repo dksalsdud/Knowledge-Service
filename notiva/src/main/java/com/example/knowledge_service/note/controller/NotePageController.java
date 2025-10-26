@@ -40,9 +40,9 @@ public class NotePageController {
      * @return 노트 상세 페이지 뷰
      */
     @GetMapping("/{id}")
-    public String getNoteDetailPage(@PathVariable("id") Long id, Model model) {
+    public String getNoteDetailPage(@PathVariable("noteId") Long noteId, Model model) {
 
-        model.addAttribute("detailNote", noteService.getDetailNote(id));
+        model.addAttribute("detailNote", noteService.getDetailNote(noteId));
 
         return "note/detail";
     }
