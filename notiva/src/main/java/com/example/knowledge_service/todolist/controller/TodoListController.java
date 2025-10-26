@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 
 
 @Controller
@@ -63,4 +64,17 @@ public class TodoListController {
         return "todo/update";
     }
     
+    /**
+     * 투두리스트 업데이트 컨트롤러
+     * @param todoId
+     * @param todoListDTO
+     * @return redirect 노티바 홈 페이지
+     */
+    @PutMapping("/{id}")
+    public String putTodoUpdate(@PathVariable("todoId") Long todoId, @ModelAttribute TodoListDTO todoListDTO) {
+        
+        todoListService.updateTodo(todoId, todoListDTO);
+
+        return "redirect:/Notiva";
+    }
 }
