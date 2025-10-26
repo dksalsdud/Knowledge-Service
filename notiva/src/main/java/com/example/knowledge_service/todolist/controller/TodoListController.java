@@ -10,6 +10,7 @@ import com.example.knowledge_service.todolist.service.TodoListService;
 
 import lombok.RequiredArgsConstructor;
 
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -74,6 +75,19 @@ public class TodoListController {
     public String putTodoUpdate(@PathVariable("todoId") Long todoId, @ModelAttribute TodoListDTO todoListDTO) {
         
         todoListService.updateTodo(todoId, todoListDTO);
+
+        return "redirect:/Notiva";
+    }
+
+    /**
+     * 투두리스트 삭제 처리
+     * @param todoId 투두리스트 ID
+     * @return 리다이렉트 노티바 홈 페이지
+     */
+    @DeleteMapping("{todoId}")
+    public String delelteNote(@PathVariable("todoId") Long todoId) {
+
+        todoListService.deleteTodo(todoId);
 
         return "redirect:/Notiva";
     }
