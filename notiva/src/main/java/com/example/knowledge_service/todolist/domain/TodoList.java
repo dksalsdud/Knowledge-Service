@@ -25,4 +25,8 @@ public class TodoList {
 
     @Column(nullable = false, length = 100)
     private String title;
+
+    @Column(nullable = false)
+    @Builder.Default
+    private TodoComplete complete = TodoComplete.FAIL;
 }
