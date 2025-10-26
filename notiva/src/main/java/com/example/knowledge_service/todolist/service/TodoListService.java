@@ -46,7 +46,7 @@ public class TodoListService {
                 });
 
         TodoList todo = TodoList.builder()
-                .title(todoListDTO.getTitile())
+                .title(todoListDTO.getTitle())
                 .complete(todoListDTO.getComplete())
                 .startDay(todoListDTO.getStartDay())
                 .endDay(todoListDTO.getEndDay())
@@ -82,11 +82,22 @@ public class TodoListService {
                 return new AppException(ErrorCode.TODOLIST_NOT_FOUND, "해당 투두리스트가 존재 하지 않습니다. Todo_Id = " + todoId);
             });
 
-        todoList.setTitle(todoListDTO.getTitile());
-        todoList.setComplete(todoListDTO.getComplete());
-        todoList.setStartDay(todoListDTO.getStartDay());
-        todoList.setEndDay(todoListDTO.getEndDay());
-        
+        if (todoListDTO.getTitle() != null) {
+            todoList.setTitle(todoListDTO.getTitle());
+        }
+
+        if (todoListDTO.getComplete() != null) {
+            todoList.setComplete(todoListDTO.getComplete());
+        }
+
+        if (todoListDTO.getStartDay() != null) {
+            todoList.setStartDay(todoListDTO.getStartDay());
+        }
+
+        if (todoListDTO.getEndDay() != null) {
+            todoList.setEndDay(todoListDTO.getEndDay());
+        }
+ 
         todoListRepository.save(todoList);
     }
 }
