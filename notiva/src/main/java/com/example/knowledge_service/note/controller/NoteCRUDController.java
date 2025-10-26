@@ -59,9 +59,9 @@ public class NoteCRUDController {
      * @return 노트 수정 페이지 뷰
      */
     @GetMapping("/update/{id}")
-    public String getUpdateNotePage(@PathVariable("id") Long id, Model model) {
+    public String getUpdateNotePage(@PathVariable("noteId") Long noteId, Model model) {
 
-        model.addAttribute("note", noteService.getDetailNote(id));
+        model.addAttribute("note", noteService.getDetailNote(noteId));
 
         return "note/update";
     }
@@ -73,11 +73,11 @@ public class NoteCRUDController {
      * @return 노트 상세 페이지로 리다이렉트
      */
     @PutMapping("update/{id}")
-    public String putUpdateNote(@PathVariable("id") Long id, @ModelAttribute NoteDTO noteDTO) {
+    public String putUpdateNote(@PathVariable("noteId") Long noteId, @ModelAttribute NoteDTO noteDTO) {
         
-        noteService.updateNote(id, noteDTO);
+        noteService.updateNote(noteId, noteDTO);
         
-        return "redirect:/note/" + id;
+        return "redirect:/note/" + noteId;
     }
 
     /**
@@ -87,9 +87,9 @@ public class NoteCRUDController {
      * @return 노트 리스트 페이지로 리다이렉트
      */
     @DeleteMapping("{id}")
-    public String delelteNote(@PathVariable("id") Long id, @RequestParam(value = "userId") Long userId) {
+    public String delelteNote(@PathVariable("noteId") Long noteId, @RequestParam(value = "userId") Long userId) {
 
-        noteService.deleteNote(id);
+        noteService.deleteNote(noteId);
 
         return "redirect:/note/list?userId=" + userId;
     }
