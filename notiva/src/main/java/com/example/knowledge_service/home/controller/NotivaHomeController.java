@@ -37,6 +37,8 @@ public class NotivaHomeController{
     @GetMapping("/Notiva")
     public String getNoteCalendarTodoHomePage(@RequestParam(value = "userId") Long userId, Model model) {
 
+        model.addAttribute("userId", userId);
+
         // 노트 리스트
         model.addAttribute("noteList", noteService.getListNotes(userId));
 
