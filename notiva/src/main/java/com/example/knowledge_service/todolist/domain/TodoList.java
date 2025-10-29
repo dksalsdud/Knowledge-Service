@@ -6,6 +6,8 @@ import com.example.knowledge_service.user.domain.User;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -36,6 +38,7 @@ public class TodoList {
 
     // 완수 여부
     @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
     @Builder.Default
     private TodoComplete complete = TodoComplete.FAIL;
 
