@@ -35,4 +35,11 @@ public class NoteTag {
     @JoinColumn(name = "note_id", nullable = false)
     private Note note;
 
+    /**
+     * 태그 참조
+     */
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "tag_id", nullable = false)
+    private Tag tag;
+    
 }
