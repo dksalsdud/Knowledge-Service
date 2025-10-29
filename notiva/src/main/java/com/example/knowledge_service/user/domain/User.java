@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.example.knowledge_service.note.domain.Note;
+import com.example.knowledge_service.todolist.domain.TodoList;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -54,6 +55,11 @@ public class User {
     @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
     @Builder.Default
     private List<Note> notes = new ArrayList<>();
+
+    // ✅ 유저가 삭제되면 관련된 투두리스트 모두 삭제됨
+    @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
+    @Builder.Default
+    private List<TodoList> todoList = new ArrayList<>();
 
     /**
      * 엔티티 저장 전 실행
