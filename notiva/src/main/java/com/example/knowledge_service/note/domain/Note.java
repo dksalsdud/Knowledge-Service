@@ -1,9 +1,13 @@
 package com.example.knowledge_service.note.domain;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
+import com.example.knowledge_service.notetag.domain.NoteTag;
 import com.example.knowledge_service.user.domain.User;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -15,6 +19,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.Lob;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.PreUpdate;
 import lombok.AllArgsConstructor;
@@ -91,6 +96,17 @@ public class Note {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
+
+    /**
+     * 노트 CascadeType추가
+     * 노트가 만들어지기 전에 태그와 함께 넣어 노트를 만들 수 있음 / 노트 삭제 시 노트태그 테이블에 관련된 노트 ID 컬럼들 전부 제거
+     * 
+     * orphanRemoval추가
+     * 태그와 연결이 끊어진 노트는 노트 태그에서 삭제됨
+     */
+    @Builder.Default
+    @OneToMany(mappedBy = "note", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<NoteTag> noteTags = new ArrayList<>();
 
     /**
      * 엔티티 저장 전 실행
