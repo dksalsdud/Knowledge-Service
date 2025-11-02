@@ -1,6 +1,8 @@
 package com.example.knowledge_service.note.dto;
 
 
+import java.util.List;
+
 import com.example.knowledge_service.note.domain.NoteVisibility;
 
 import lombok.AllArgsConstructor;
@@ -24,4 +26,8 @@ public class NoteDTO {
     private String content;
 
     private NoteVisibility visibility;
+
+    // 태그 이름 리스트 (쉼표로 구분된 문자열을 받아서 처리)
+    private List<String> tags;
+
 }
