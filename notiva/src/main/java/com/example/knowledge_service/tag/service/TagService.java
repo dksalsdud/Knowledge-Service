@@ -14,5 +14,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class TagService {
 
+    private final TagFilterService tagFilterService;
+
     
 }
