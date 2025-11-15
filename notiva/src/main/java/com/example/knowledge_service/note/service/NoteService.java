@@ -10,6 +10,7 @@ import com.example.knowledge_service.exception.ErrorCode;
 import com.example.knowledge_service.note.domain.Note;
 import com.example.knowledge_service.note.dto.NoteDTO;
 import com.example.knowledge_service.note.repository.NoteRepository;
+import com.example.knowledge_service.tag.service.TagService;
 import com.example.knowledge_service.user.domain.User;
 import com.example.knowledge_service.user.repository.UserRepository;
 
@@ -21,6 +22,7 @@ public class NoteService {
     
     private final NoteRepository noteRepository;
     private final UserRepository userRepository;
+    private final TagService tagService;
 
     /**
      * 특정 사용자의 모든 노트 목록 조회
