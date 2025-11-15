@@ -1,6 +1,10 @@
 package com.example.knowledge_service.tag.service;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
+
+import com.example.knowledge_service.tag.repository.TagRepository;
 
 import lombok.RequiredArgsConstructor;
 
@@ -15,6 +19,7 @@ import lombok.RequiredArgsConstructor;
 public class TagService {
 
     private final TagFilterService tagFilterService;
+    private final TagRepository tagRepository;
 
     
 }
