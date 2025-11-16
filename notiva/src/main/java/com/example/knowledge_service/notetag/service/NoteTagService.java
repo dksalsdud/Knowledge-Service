@@ -27,7 +27,7 @@ public class NoteTagService {
     private final NoteTagRepository noteTagRepository;
 
     @Transactional
-    public List<NoteTag> createRelations(Note note, List<Tag> tags) {
+    public void createRelations(Note note, List<Tag> tags) {
         
         List<NoteTag> created = new ArrayList<>();
 
@@ -44,7 +44,5 @@ public class NoteTagService {
             noteTagRepository.save(noteTag);
             created.add(noteTag);     
         }
-        
-        return created;
     }
 }
