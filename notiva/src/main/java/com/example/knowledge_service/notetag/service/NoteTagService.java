@@ -1,8 +1,15 @@
 package com.example.knowledge_service.notetag.service;
 
-import org.springframework.stereotype.Service;
+import java.util.ArrayList;
+import java.util.List;
 
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.example.knowledge_service.note.domain.Note;
+import com.example.knowledge_service.notetag.domain.NoteTag;
 import com.example.knowledge_service.notetag.repository.NoteTagRepository;
+import com.example.knowledge_service.tag.domain.Tag;
 
 import lombok.RequiredArgsConstructor;
 
@@ -18,4 +25,26 @@ import lombok.RequiredArgsConstructor;
 public class NoteTagService {
     
     private final NoteTagRepository noteTagRepository;
+
+    @Transactional
+    public List<NoteTag> createRelations(Note note, List<Tag> tags) {
+        
+        List<NoteTag> created = new ArrayList<>();
+
+        for (Tag tag : tags) {
+            NoteTag noteTag = NoteTag.builder()
+                .note(note)
+                .tag(tag)
+                .build();
+
+            // 양방향 연관관계 유지 (영속화 이전에 컬렉션에 추가해도 안전)
+            note.getNoteTags().add(noteTag);
+            tag.getNoteTags().add(noteTag);
+
+            noteTagRepository.save(noteTag);
+            created.add(noteTag);     
+        }
+        
+        return created;
+    }
 }
