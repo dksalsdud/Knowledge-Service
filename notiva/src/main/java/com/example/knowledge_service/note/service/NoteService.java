@@ -10,6 +10,8 @@ import com.example.knowledge_service.exception.ErrorCode;
 import com.example.knowledge_service.note.domain.Note;
 import com.example.knowledge_service.note.dto.NoteDTO;
 import com.example.knowledge_service.note.repository.NoteRepository;
+import com.example.knowledge_service.notetag.service.NoteTagService;
+import com.example.knowledge_service.tag.domain.Tag;
 import com.example.knowledge_service.tag.service.TagService;
 import com.example.knowledge_service.user.domain.User;
 import com.example.knowledge_service.user.repository.UserRepository;
@@ -23,6 +25,7 @@ public class NoteService {
     private final NoteRepository noteRepository;
     private final UserRepository userRepository;
     private final TagService tagService;
+    private final NoteTagService noteTagService;
 
     /**
      * 특정 사용자의 모든 노트 목록 조회
@@ -77,7 +80,14 @@ public class NoteService {
                 .user(user)
                 .build();
 
+        // Note 저장 (영속화)
         noteRepository.save(note);
+        
+        // 태그 처리: Tag 엔티티 리스트 얻기
+        List<Tag> tags = tagService.saveOrFindTags(noteDTO.getTags());
+
+        // 관계 생성 및 양방향 연관관계 유지는 NoteTagService가 담당
+        noteTagService.createRelations(note, tags);
     }
 
     /**
